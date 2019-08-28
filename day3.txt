@@ -1,0 +1,336 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.5.16-log MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use adventureworks;
+Database changed
+mysql> create txtdatatypes
+    -> (
+    -> A char(10),
+    -> B varchar(20),
+    -> C text
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'txtdatatypes
+(
+A char(10),
+B varchar(20),
+C text
+)' at line 1
+mysql> create txtdatatypes
+    -> (
+    -> A char(10),
+    -> B varchar(20),
+    -> C text
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'txtdatatypes
+(
+A char(10),
+B varchar(20),
+C text
+)' at line 1
+mysql> create table txtdatatypes
+    -> (
+    -> A char(10),
+    -> B varchar(20),
+    -> C text
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into txtdatatypes values
+    -> ('abcdef','123','larger strings accepted here'),
+    -> ('adef','133','larger strings accepted here');
+Query OK, 2 rows affected (0.11 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> create table numdatatypes
+    -> (
+    -> a tinyint,
+    -> b smallint,
+    -> c mediumint,
+    -> d int,
+    -> e bigint,
+    -> f decimal(8,2),
+    -> g double(8,2),
+    -> h float
+    -> );
+ERROR 1050 (42S01): Table 'numdatatypes' already exists
+mysql> create table numberdatatypes
+    -> (
+    -> a tinyint,
+    -> b smallint,
+    -> c mediumint,
+    -> d int,
+    -> e bigint,
+    -> f decimal(8,2),
+    -> g double(8,2),
+    -> h float
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> describe numberdatatypes;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| a     | tinyint(4)   | YES  |     | NULL    |       |
+| b     | smallint(6)  | YES  |     | NULL    |       |
+| c     | mediumint(9) | YES  |     | NULL    |       |
+| d     | int(11)      | YES  |     | NULL    |       |
+| e     | bigint(20)   | YES  |     | NULL    |       |
+| f     | decimal(8,2) | YES  |     | NULL    |       |
+| g     | double(8,2)  | YES  |     | NULL    |       |
+| h     | float        | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> INSERT INTO NumDatatypes VALUES
+    -> (13, 130, 33456, 333456, 33333456,
+    -> 999999.99, 999999.99, 999999.99);
+Query OK, 1 row affected (0.13 sec)
+
+mysql>
+mysql> INSERT INTO NumDatatypes VALUES
+    -> (110, 234, 3345, 33345, 3333345,
+    -> 999999.9, 999999.99, 999999.99);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> CREATE TABLE DateDataTypes
+    -> (
+    -> A date,
+    -> B datetime,
+    -> C timestamp,
+    -> D time
+    -> );
+ERROR 1050 (42S01): Table 'datedatatypes' already exists
+mysql>
+mysql> INSERT INTO DateDataTypes VALUES
+    -> (Current_date(), now(), now(),
+    -> now());
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from datedatatypes;
++------------+---------------------+---------------------+----------+
+| A          | B                   | C                   | D        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 23:15:48 | 2019-08-26 23:15:48 | 23:15:48 |
+| 2019-08-28 | 2019-08-28 19:18:41 | 2019-08-28 19:18:41 | 19:18:41 |
++------------+---------------------+---------------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO DateDataTypes VALUES
+    -> ('2019-13-26',
+    ->  '2019-08-26 10:30:23',
+    ->  '20190826103023',
+    ->  '10:30:23'
+    -> );
+Query OK, 1 row affected, 1 warning (0.08 sec)
+
+mysql> select * from datedatatypes;
++------------+---------------------+---------------------+----------+
+| A          | B                   | C                   | D        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 23:15:48 | 2019-08-26 23:15:48 | 23:15:48 |
+| 2019-08-28 | 2019-08-28 19:18:41 | 2019-08-28 19:18:41 | 19:18:41 |
+| 0000-00-00 | 2019-08-26 10:30:23 | 2019-08-26 10:30:23 | 10:30:23 |
++------------+---------------------+---------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> create table specialdatatypes
+    -> (
+    -> id int auto_increment primary key,
+    -> membership enum('silver','gold','platinum'),
+    -> hobbies set('swim','sking','cricket')
+    -> );
+ERROR 1050 (42S01): Table 'specialdatatypes' already exists
+mysql> create table spcldatatypes
+    -> (
+    -> id int auto_increment primary key,
+    -> membership enum('silver','gold','platinum'),
+    -> hobbies set('swim','sking','cricket')
+    -> );
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> describe spcldatatypes;
++------------+----------------------------------+------+-----+---------+----------------+
+| Field      | Type                             | Null | Key | Default | Extra          |
++------------+----------------------------------+------+-----+---------+----------------+
+| id         | int(11)                          | NO   | PRI | NULL    | auto_increment |
+| membership | enum('silver','gold','platinum') | YES  |     | NULL    |                |
+| hobbies    | set('swim','sking','cricket')    | YES  |     | NULL    |                |
++------------+----------------------------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO SplDataTypes
+    -> (Membership, Hobbies)
+    ->  VALUES
+    -> ('Silver',
+    ->  'Sking,bowling'
+    -> );
+ERROR 1146 (42S02): Table 'adventureworks.spldatatypes' doesn't exist
+mysql>
+mysql>
+mysql> INSERT INTO SplDataTypes
+    -> (Membership, Hobbies)
+    ->  VALUES
+    -> ('Silver',
+    -> 'bowling');
+ERROR 1146 (42S02): Table 'adventureworks.spldatatypes' doesn't exist
+mysql> INSERT INTO spclDataTypes
+    -> (Membership, Hobbies)
+    ->  VALUES
+    -> ('Silver',
+    ->  'Sking,bowling'
+    -> );
+Query OK, 1 row affected, 1 warning (2.41 sec)
+
+mysql>
+mysql>
+mysql> INSERT INTO SpclDataTypes
+    -> (Membership, Hobbies)
+    ->  VALUES
+    -> ('Silver',
+    -> 'bowling');
+Query OK, 1 row affected, 1 warning (0.13 sec)
+
+mysql> select * from spcldatatypes;
++----+------------+---------+
+| id | membership | hobbies |
++----+------------+---------+
+|  1 | silver     | sking   |
+|  2 | silver     |         |
++----+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO SpclDataTypes
+    -> (Membership, Hobbies)
+    ->  VALUES
+    -> ('Silver',
+    -> 'bowling');
+Query OK, 1 row affected, 1 warning (0.11 sec)
+
+mysql> select * from spcldatatypes;
++----+------------+---------+
+| id | membership | hobbies |
++----+------------+---------+
+|  1 | silver     | sking   |
+|  2 | silver     |         |
+|  3 | silver     |         |
++----+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from productcategory;
++------------+--------------+
+| product_id | name         |
++------------+--------------+
+|          1 | bikes        |
+|          2 | components   |
+|          3 | accessories  |
+|          4 | clothing     |
+|          5 | miscellanous |
++------------+--------------+
+5 rows in set (0.06 sec)
+
+mysql> select *
+    -> from productcategory
+    -> order by name asc;
++------------+--------------+
+| product_id | name         |
++------------+--------------+
+|          3 | accessories  |
+|          1 | bikes        |
+|          4 | clothing     |
+|          2 | components   |
+|          5 | miscellanous |
++------------+--------------+
+5 rows in set (0.06 sec)
+
+mysql> select *
+    -> from productcategory
+    -> order by name desc;
++------------+--------------+
+| product_id | name         |
++------------+--------------+
+|          5 | miscellanous |
+|          2 | components   |
+|          4 | clothing     |
+|          1 | bikes        |
+|          3 | accessories  |
++------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> from productcategory
+    -> order by name ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from productcategory
+order by name' at line 1
+mysql> from productcategory
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from productcategory' at line 1
+mysql> select *
+    -> from productcategory
+    -> order by name;
++------------+--------------+
+| product_id | name         |
++------------+--------------+
+|          3 | accessories  |
+|          1 | bikes        |
+|          4 | clothing     |
+|          2 | components   |
+|          5 | miscellanous |
++------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ProductSubcategoryID,
+    ->        Name,
+    ->        ProductCategoryID
+    ->   FROM ProductSubcategory
+    ->   ORDER BY 2;
+ERROR 1146 (42S02): Table 'adventureworks.productsubcategory' doesn't exist
+mysql> select *
+    -> from productcategory
+    -> order by 2;
++------------+--------------+
+| product_id | name         |
++------------+--------------+
+|          3 | accessories  |
+|          1 | bikes        |
+|          4 | clothing     |
+|          2 | components   |
+|          5 | miscellanous |
++------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select *
+    -> from productcategory
+    -> order by 2
+    -> limit 2,5;
++------------+--------------+
+| product_id | name         |
++------------+--------------+
+|          4 | clothing     |
+|          2 | components   |
+|          5 | miscellanous |
++------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select *
+    -> from productcategory
+    -> order by 2
+    -> limit 1,3;
++------------+------------+
+| product_id | name       |
++------------+------------+
+|          1 | bikes      |
+|          4 | clothing   |
+|          2 | components |
++------------+------------+
+3 rows in set (0.00 sec)
+
+mysql>
