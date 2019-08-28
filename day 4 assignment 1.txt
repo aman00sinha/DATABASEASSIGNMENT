@@ -1,0 +1,412 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 6
+Server version: 5.5.16-log MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use adventureworks;
+Database changed
+mysql> CREATE TABLE Book
+    -> (
+    ->   BookID int AUTO_INCREMENT
+    ->   primary key,
+    ->   BookName varchar(50) not null,
+    ->   Price decimal(6, 2)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> ALTER TABLE Book
+    ->   ADD COLUMN Author varchar(40)
+    ->   not null;
+Query OK, 0 rows affected (0.33 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| BookID   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| BookName | varchar(50)  | NO   |     | NULL    |                |
+| Price    | decimal(6,2) | YES  |     | NULL    |                |
+| Author   | varchar(40)  | NO   |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Book
+    ->   MODIFY COLUMN Author varchar(30)
+    ->   not null;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Book
+    ->   MODIFY COLUMN Author char(30)
+    ->   not null;
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Book
+    ->   DROP COLUMN Author;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE Book
+    -> (
+    ->   BookID int AUTO_INCREMENT
+    ->   primary key,
+    ->   BookName varchar(50) not null,
+    ->   Price decimal(6, 2)
+    -> );
+ERROR 1050 (42S01): Table 'book' already exists
+mysql> use table book;
+ERROR 1049 (42000): Unknown database 'table'
+mysql> use adventureworks;
+Database changed
+mysql> use table book;
+ERROR 1049 (42000): Unknown database 'table'
+mysql> create table book;
+ERROR 1113 (42000): A table must have at least 1 column
+mysql> CREATE TABLE Book
+    -> (
+    ->   BookID int AUTO_INCREMENT
+    ->   primary key,
+    ->   BookName varchar(50) not null,
+    ->   Price decimal(6, 2)
+    -> );
+ERROR 1050 (42S01): Table 'book' already exists
+mysql> CREATE TABLE Book
+    -> (
+    ->   BookID int AUTO_INCREMENT
+    ->   primary key,
+    ->   BookName varchar(50) not null,
+    ->   Price decimal(6, 2)
+    -> );
+ERROR 1050 (42S01): Table 'book' already exists
+mysql> select * from book;
+Empty set (0.00 sec)
+
+mysql> drop table book;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> CREATE TABLE Book
+    -> (
+    ->   BookID int AUTO_INCREMENT
+    ->   primary key,
+    ->   BookName varchar(50) not null,
+    ->   Price decimal(6, 2)
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> INSERT INTO Book
+    -> (BookName, Price) VALUES
+    -> ('MySQL for dummies', 350),
+    -> ('MySQL for Developers', 560);
+Query OK, 2 rows affected (0.11 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> INSERT INTO Book
+    -> (BookName, Price) VALUES
+    -> ('HTML5 Step by Step', NULL),
+    -> ('Java Unleashed', -560);
+Query OK, 2 rows affected (0.14 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++--------+----------------------+---------+
+| BookID | BookName             | Price   |
++--------+----------------------+---------+
+|      1 | MySQL for dummies    |  350.00 |
+|      2 | MySQL for Developers |  560.00 |
+|      3 | HTML5 Step by Step   |    NULL |
+|      4 | Java Unleashed       | -560.00 |
++--------+----------------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM Book
+    ->   WHERE BookID = 4;
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from book;
++--------+----------------------+--------+
+| BookID | BookName             | Price  |
++--------+----------------------+--------+
+|      1 | MySQL for dummies    | 350.00 |
+|      2 | MySQL for Developers | 560.00 |
+|      3 | HTML5 Step by Step   |   NULL |
++--------+----------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> INSERT INTO Book
+    -> (BookName, Price) VALUES
+    -> ('HTML5 Step by Step', NULL),
+    -> ('Java Unleashed', -560);
+Query OK, 2 rows affected (0.11 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++--------+----------------------+---------+
+| BookID | BookName             | Price   |
++--------+----------------------+---------+
+|      1 | MySQL for dummies    |  350.00 |
+|      2 | MySQL for Developers |  560.00 |
+|      3 | HTML5 Step by Step   |    NULL |
+|      5 | HTML5 Step by Step   |    NULL |
+|      6 | Java Unleashed       | -560.00 |
++--------+----------------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> drop book;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'book' at line 1
+mysql> drop table book;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> CREATE TABLE Book
+    -> (
+    ->   BookID int AUTO_INCREMENT
+    ->   primary key,
+    ->   BookName varchar(50) not null,
+    ->   Price decimal(6, 2)
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql>
+mysql>
+mysql> INSERT INTO Book
+    -> (BookName, Price) VALUES
+    -> ('MySQL for dummies', 350),
+    -> ('MySQL for Developers', 560);
+Query OK, 2 rows affected (0.11 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> INSERT INTO Book
+    -> (BookName, Price) VALUES
+    -> ('HTML5 Step by Step', NULL),
+    -> ('Java Unleashed', -560);
+Query OK, 2 rows affected (0.08 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++--------+----------------------+---------+
+| BookID | BookName             | Price   |
++--------+----------------------+---------+
+|      1 | MySQL for dummies    |  350.00 |
+|      2 | MySQL for Developers |  560.00 |
+|      3 | HTML5 Step by Step   |    NULL |
+|      4 | Java Unleashed       | -560.00 |
++--------+----------------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Member
+    -> (
+    ->   MemberID int AUTO_INCREMENT
+    ->   primary key,
+    ->   FName varchar(20) not null,
+    ->   MName varchar(10),
+    ->   LName varchar(20) not null,
+    ->   Mem_DOJ date,
+    ->   Email varchar(30),
+    ->   Phone char(10),
+    ->   Mem_type ENUM
+    ->   ('Regular', 'Silver', 'Gold',
+    ->    'Premium'
+    ->   )
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> ALTER TABLE Member
+    -> ADD CONSTRAINT Member_Email_UQ
+    ->   UNIQUE(Email);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe member;
++----------+-------------------------------------------+------+-----+---------+----------------+
+| Field    | Type                                      | Null | Key | Default | Extra          |
++----------+-------------------------------------------+------+-----+---------+----------------+
+| MemberID | int(11)                                   | NO   | PRI | NULL    | auto_increment |
+| FName    | varchar(20)                               | NO   |     | NULL    |                |
+| MName    | varchar(10)                               | YES  |     | NULL    |                |
+| LName    | varchar(20)                               | NO   |     | NULL    |                |
+| Mem_DOJ  | date                                      | YES  |     | NULL    |                |
+| Email    | varchar(30)                               | YES  | UNI | NULL    |                |
+| Phone    | char(10)                                  | YES  |     | NULL    |                |
+| Mem_type | enum('Regular','Silver','Gold','Premium') | YES  |     | NULL    |                |
++----------+-------------------------------------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> INSERT INTO Member
+    -> (FName, MName, LName, Mem_DOJ,
+    -> Email, Phone, Mem_type)
+    -> VALUES
+    -> ('Janet', NULL, 'King', NOW(),
+    ->   'JKing@adventureworks.com',
+    ->   '7324591234', 'Regular'
+    -> );
+Query OK, 1 row affected, 1 warning (0.11 sec)
+
+mysql>
+mysql> INSERT INTO Member
+    -> (FName, MName, LName, Mem_DOJ,
+    -> Email, Phone, Mem_type)
+    -> VALUES
+    -> ('Steven', NULL, 'King', NOW(),
+    ->   'SKing@adventureworks.com',
+    ->   '7323324509', 'Gold'
+    -> );
+Query OK, 1 row affected, 1 warning (0.06 sec)
+
+mysql>
+mysql> INSERT INTO Member
+    -> (FName, MName, LName, Mem_DOJ,
+    -> Email, Phone, Mem_type)
+    -> VALUES
+    -> ('Tammy', 'S', 'King', NOW(),
+    ->   NULL,
+    ->   '7323324509', 'Silver'
+    -> );
+Query OK, 1 row affected, 1 warning (0.06 sec)
+
+mysql>
+mysql> INSERT INTO Member
+    -> (FName, MName, LName, Mem_DOJ,
+    -> Email, Phone, Mem_type)
+    -> VALUES
+    -> ('Andy', 'J', 'Hillman',
+    ->  '2019-08-27', NULL,
+    ->   '8213761029', 'Silver'
+    -> );
+Query OK, 1 row affected (0.06 sec)
+
+mysql>
+mysql> SELECT *
+    ->   FROM Member;
++----------+--------+-------+---------+------------+--------------------------+------------+----------+
+| MemberID | FName  | MName | LName   | Mem_DOJ    | Email                    | Phone      | Mem_type |
++----------+--------+-------+---------+------------+--------------------------+------------+----------+
+|        1 | Janet  | NULL  | King    | 2019-08-28 | JKing@adventureworks.com | 7324591234 | Regular  |
+|        2 | Steven | NULL  | King    | 2019-08-28 | SKing@adventureworks.com | 7323324509 | Gold     |
+|        3 | Tammy  | S     | King    | 2019-08-28 | NULL                     | 7323324509 | Silver   |
+|        4 | Andy   | J     | Hillman | 2019-08-27 | NULL                     | 8213761029 | Silver   |
++----------+--------+-------+---------+------------+--------------------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE BookTran
+    -> (
+    ->   TrnID int AUTO_INCREMENT
+    ->     primary key,
+    ->   TrnDate datetime,
+    ->   BookID int REFERENCES
+    ->   Book(BookID),
+    ->   MemberID int,
+    ->   CONSTRAINT BookTran_MemberID_FK
+    ->    FOREIGN KEY(MemberID)
+    ->    REFERENCES Member(MemberID)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> drop TABLE BookTran;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> CREATE TABLE BookTran
+    -> (
+    ->   TrnID int AUTO_INCREMENT
+    ->     primary key,
+    ->   TrnDate datetime,
+    ->   BookID int REFERENCES
+    ->   Book(BookID),
+    ->   MemberID int REFERENCES
+    ->   Member(MemberID)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> describe booktran;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  |     | NULL    |                |
+| MemberID | int(11)  | YES  |     | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.36 sec)
+
+mysql> drop TABLE BookTran;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> CREATE TABLE BookTran
+    -> (
+    -> TrnID int AUTO_INCREMENT
+    ->     primary key,
+    ->   TrnDate datetime,
+    ->   BookID int,
+    ->   MemberID int,
+    ->
+    ->   CONSTRAINT BookTran_BookID_FK
+    ->    FOREIGN KEY(BookID)
+    ->    REFERENCES Book(BookID),
+    ->
+    ->   CONSTRAINT BookTran_MemberID_FK
+    ->    FOREIGN KEY(MemberID)
+    ->    REFERENCES Member(MemberID)
+    -> );
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> describe booktran;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  | MUL | NULL    |                |
+| MemberID | int(11)  | YES  | MUL | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO BookTran
+    -> (TrnDate, BookID, MemberID)
+    -> VALUES
+    -> (NOW(), 4, 1);
+Query OK, 1 row affected (0.11 sec)
+
+mysql>
+mysql> INSERT INTO BookTran
+    -> (TrnDate, BookID, MemberID)
+    -> VALUES
+    -> (NOW(), 5, 10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`adventureworks`.`booktran`, CONSTRAINT `BookTran_BookID_FK` FOREIGN KEY (`BookID`) REFERENCES `book` (`BookID`))
+mysql> INSERT INTO BookTran
+    -> (TrnDate, BookID, MemberID)
+    -> VALUES
+    -> (NOW(), 4, 1);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from booktran;
++-------+---------------------+--------+----------+
+| TrnID | TrnDate             | BookID | MemberID |
++-------+---------------------+--------+----------+
+|     1 | 2019-08-28 22:42:36 |      4 |        1 |
+|     3 | 2019-08-28 22:43:04 |      4 |        1 |
++-------+---------------------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO BookTran
+    -> (TrnDate, BookID, MemberID)
+    -> VALUES
+    -> (NOW(), 5, 1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`adventureworks`.`booktran`, CONSTRAINT `BookTran_BookID_FK` FOREIGN KEY (`BookID`) REFERENCES `book` (`BookID`))
+mysql>
+mysql>
